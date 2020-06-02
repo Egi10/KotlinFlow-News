@@ -8,6 +8,7 @@ import coil.api.load
 import coil.transform.RoundedCornersTransformation
 import id.buaja.news.R
 import id.buaja.news.data.entity.ArticlesItem
+import id.buaja.news.untils.dateFormatUtc
 import kotlinx.android.synthetic.main.item_list_news.view.*
 
 /**
@@ -38,7 +39,7 @@ class NewsAdapter(
                     transformations(RoundedCornersTransformation(20f))
                 }
                 tvAuthor.text = item.author
-                tvPublishedAt.text = item.publishedAt
+                tvPublishedAt.text = item.publishedAt?.dateFormatUtc()
                 tvTitle.text = item.title
 
                 setOnClickListener {
