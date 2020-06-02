@@ -38,7 +38,11 @@ class NewsAdapter(
                     placeholder(R.drawable.no_image)
                     transformations(RoundedCornersTransformation(20f))
                 }
-                tvAuthor.text = item.author
+                tvAuthor.text = if (item.author == "-") {
+                    item.source?.name
+                } else {
+                    item.author ?: item.source?.name
+                }
                 tvPublishedAt.text = item.publishedAt?.dateFormatUtc()
                 tvTitle.text = item.title
 
