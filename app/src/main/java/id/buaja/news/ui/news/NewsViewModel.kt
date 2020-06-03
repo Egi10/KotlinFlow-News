@@ -8,10 +8,9 @@ import id.buaja.news.data.entity.ArticlesItem
 import id.buaja.news.data.entity.NewsResponse
 import id.buaja.news.domain.NewsUseCase
 import id.buaja.news.untils.ResultState
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.onCompletion
-import kotlinx.coroutines.flow.onStart
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 
 /**
@@ -33,13 +32,16 @@ class NewsViewModel(private val useCase: NewsUseCase): ViewModel() {
     val message: LiveData<String> get() = _message
 
     fun getNewsEverything(domains: String?) {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.Main) {
             useCase.getNewsEverything(domains)
                 .onStart {
                     _loading.value = true
                 }
                 .onCompletion {
                     _loading.value = false
+                }
+                .catch { cause: Throwable ->
+                    _error.postValue(cause.message)
                 }
                 .collect {
                     when(it) {
@@ -50,10 +52,6 @@ class NewsViewModel(private val useCase: NewsUseCase): ViewModel() {
 
                         is ResultState.Message -> {
                             _message.postValue(it.message)
-                        }
-
-                        is ResultState.Error -> {
-                            _error.postValue(it.error)
                         }
                     }
                 }
