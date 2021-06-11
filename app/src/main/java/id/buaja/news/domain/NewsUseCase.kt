@@ -12,7 +12,6 @@ import kotlinx.coroutines.flow.flowOn
  * Created By Julsapargi Nursam 6/2/20
  */
 
-@ExperimentalCoroutinesApi
 class NewsUseCase(private val repository: NewsRepository) {
     suspend fun getNewsEverything(domains: String?) = flow {
         val response = repository.getNewsEverything(domains)

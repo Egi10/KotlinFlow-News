@@ -9,15 +9,16 @@ import id.buaja.news.data.entity.NewsResponse
 import id.buaja.news.domain.NewsUseCase
 import id.buaja.news.untils.ResultState
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.onCompletion
+import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
 
 /**
  * Created By Julsapargi Nursam 6/2/20
  */
 
-@ExperimentalCoroutinesApi
 class NewsViewModel(private val useCase: NewsUseCase): ViewModel() {
     private val _news = MutableLiveData<List<ArticlesItem>>()
     val news: LiveData<List<ArticlesItem>> get() = _news

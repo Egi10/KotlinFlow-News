@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import coil.api.load
+import coil.load
 import coil.transform.RoundedCornersTransformation
 import id.buaja.news.R
 import id.buaja.news.data.entity.ArticlesItem
@@ -14,7 +14,6 @@ import kotlinx.android.synthetic.main.item_list_news.view.*
 /**
  * Created By Julsapargi Nursam 6/3/20
  */
-
 
 class NewsAdapter(
     private val data: List<ArticlesItem>,
